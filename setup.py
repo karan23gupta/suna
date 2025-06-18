@@ -566,7 +566,7 @@ def configure_frontend_env(env_vars, use_docker=True):
     env_path = os.path.join('frontend', '.env.local')
     
     # Use the appropriate backend URL based on start method
-    backend_url = "http://localhost:8000/api"
+    backend_url = "http://18.101.88.243:8000/api"
 
     config = {
         'NEXT_PUBLIC_SUPABASE_URL': env_vars['supabase']['SUPABASE_URL'],
