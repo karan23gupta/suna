@@ -3,11 +3,11 @@ import { redirect } from 'next/navigation';
 import { isFlagEnabled } from '@/lib/feature-flags';
 
 export const metadata: Metadata = {
-  title: 'Create Agent | Kortix Suna',
-  description: 'Interactive agent playground powered by Kortix Suna',
+  title: 'Create Agent | Shukra',
+  description: 'Interactive agent playground powered by Shukra',
   openGraph: {
-    title: 'Agent Playground | Kortix Suna',
-    description: 'Interactive agent playground powered by Kortix Suna',
+    title: 'Agent Playground | Shukra',
+    description: 'Interactive agent playground powered by Shukra',
     type: 'website',
   },
 };
