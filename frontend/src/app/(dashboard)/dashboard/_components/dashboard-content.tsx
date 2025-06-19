@@ -194,9 +194,8 @@ export function DashboardContent() {
           <div className="flex flex-col items-center text-center w-full">
             <div className="flex items-center gap-1">
               <h1 className="tracking-tight text-4xl text-muted-foreground leading-tight">
-                Hey, I am
+                Hey, I am Shukra
               </h1>
-              Shukra
             </div>
             <p className="tracking-tight text-3xl font-normal text-muted-foreground/80 mt-2">
               What would you like to do today? (Beta)
