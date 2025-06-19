@@ -297,7 +297,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
     project,
     debugMode = false,
     isPreviewMode = false,
-    agentName = 'Suna',
+    agentName = 'Shukra',
     agentAvatar = <KortixLogo size={16} />,
     emptyStateComponent,
 }) => {
@@ -573,10 +573,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                                 <div className="flex flex-col gap-2">
                                                     {/* Logo positioned above the message content - ONLY ONCE PER GROUP */}
                                                     <div className="flex items-center">
-                                                        <div className="rounded-md flex items-center justify-center">
-                                                            {agentAvatar}
-                                                        </div>
-                                                        <p className='ml-2 text-sm text-muted-foreground'>{agentName ? agentName : 'Suna'}</p>
+                                                        <p className='ml-2 text-sm text-muted-foreground'>'Shukra'</p>
                                                     </div>
                                                     
                                                     {/* Message content - ALL messages in the group */}
@@ -842,10 +839,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                         <div className="flex flex-col gap-2">
                                             {/* Logo positioned above the loader */}
                                             <div className="flex items-center">
-                                                <div className="rounded-md flex items-center justify-center">
-                                                    {agentAvatar}
-                                                </div>
-                                                <p className='ml-2 text-sm text-muted-foreground'>{agentName}</p>
+                                                <p className='ml-2 text-sm text-muted-foreground'>'Shukra'</p>
                                             </div>
                                             
                                             {/* Loader content */}
@@ -862,9 +856,6 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                     <div className="flex flex-col gap-2">
                                         {/* Logo positioned above the tool call */}
                                         <div className="flex justify-start">
-                                            <div className="rounded-md flex items-center justify-center">
-                                                {agentAvatar}
-                                            </div>
                                             <p className='ml-2 text-sm text-muted-foreground'>{agentName}</p>
                                         </div>
                                         
@@ -887,9 +878,6 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                     <div className="flex flex-col gap-2">
                                         {/* Logo positioned above the streaming indicator */}
                                         <div className="flex justify-start">
-                                            <div className="rounded-md flex items-center justify-center">
-                                                {agentAvatar}
-                                            </div>
                                             <p className='ml-2 text-sm text-muted-foreground'>{agentName}</p>
                                         </div>
                                         
