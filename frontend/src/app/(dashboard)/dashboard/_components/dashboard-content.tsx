@@ -196,11 +196,7 @@ export function DashboardContent() {
               <h1 className="tracking-tight text-4xl text-muted-foreground leading-tight">
                 Hey, I am
               </h1>
-              <AgentSelector
-                selectedAgentId={selectedAgentId}
-                onAgentSelect={setSelectedAgentId}
-                variant="heading"
-              />
+              Shukra
             </div>
             <p className="tracking-tight text-3xl font-normal text-muted-foreground/80 mt-2">
               What would you like to do today? (Beta)

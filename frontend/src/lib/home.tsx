@@ -1135,12 +1135,12 @@ export const siteConfig = {
         {
           id: 9,
           title: 'Privacy Policy',
-          url: 'https://Shukra.so/legal?tab=privacy',
+          url: 'https://suna.so/legal?tab=privacy',
         },
         {
           id: 10,
           title: 'Terms of Service',
-          url: 'https://Shukra.so/legal?tab=terms',
+          url: 'https://suna.so/legal?tab=terms',
         },
         {
           id: 11,
@@ -1191,7 +1191,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/2fbf0552-87d6-4d12-be25-d54f435bc493',
+      url: 'https://suna.so/share/2fbf0552-87d6-4d12-be25-d54f435bc493',
     },
     {
       id: 'vc-list',
@@ -1226,7 +1226,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/a172382b-aa77-42a2-a3e1-46f32a0f9c37',
+      url: 'https://suna.so/share/a172382b-aa77-42a2-a3e1-46f32a0f9c37',
     },
     {
       id: 'candidate-search',
@@ -1268,7 +1268,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/d9e39c94-4f6f-4b5a-b1a0-b681bfe0dee8',
+      url: 'https://suna.so/share/d9e39c94-4f6f-4b5a-b1a0-b681bfe0dee8',
     },
     {
       id: 'company-trip',
@@ -1317,7 +1317,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/23f7d904-eb66-4a9c-9247-b9704ddfd233',
+      url: 'https://suna.so/share/23f7d904-eb66-4a9c-9247-b9704ddfd233',
     },
     {
       id: 'excel-spreadsheet',
@@ -1359,7 +1359,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/bf6a819b-6af5-4ef7-b861-16e5261ceeb0',
+      url: 'https://suna.so/share/bf6a819b-6af5-4ef7-b861-16e5261ceeb0',
     },
     {
       id: 'speaker-prospecting',
@@ -1401,7 +1401,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/6830cc6d-3fbd-492a-93f8-510a5f48ce50',
+      url: 'https://suna.so/share/6830cc6d-3fbd-492a-93f8-510a5f48ce50',
     },
     {
       id: 'scientific-papers',
@@ -1443,7 +1443,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/a106ef9f-ed97-46ee-8e51-7bfaf2ac3c29',
+      url: 'https://suna.so/share/a106ef9f-ed97-46ee-8e51-7bfaf2ac3c29',
     },
     {
       id: 'lead-generation',
@@ -1485,7 +1485,7 @@ export const siteConfig = {
       ),
       image:
         'https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2400&q=80',
-      url: 'https://Shukra.so/share/a01744fc-6b33-434c-9d4e-67d7e820297c',
+      url: 'https://suna.so/share/a01744fc-6b33-434c-9d4e-67d7e820297c',
     },
     {
       id: 'seo-analysis',
