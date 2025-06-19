@@ -203,7 +203,7 @@ export function DashboardContent() {
               />
             </div>
             <p className="tracking-tight text-3xl font-normal text-muted-foreground/80 mt-2">
-              What would you like to do today?
+              What would you like to do today? (Beta)
             </p>
           </div>
 

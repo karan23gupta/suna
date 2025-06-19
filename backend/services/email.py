@@ -8,9 +8,9 @@ logger = logging.getLogger(__name__)
 
 class EmailService:
     def __init__(self):
+        self.sender_email = os.getenv('MAILTRAP_SENDER_EMAIL')
+        self.sender_name = os.getenv('MAILTRAP_SENDER_NAME', 'Shukra Team')
         self.api_token = os.getenv('MAILTRAP_API_TOKEN')
-        self.sender_email = os.getenv('MAILTRAP_SENDER_EMAIL', 'dom@kortix.ai')
-        self.sender_name = os.getenv('MAILTRAP_SENDER_NAME', 'Suna Team')
         
         if not self.api_token:
             logger.warning("MAILTRAP_API_TOKEN not found in environment variables")
@@ -18,25 +18,125 @@ class EmailService:
         else:
             self.client = mt.MailtrapClient(token=self.api_token)
     
-    def send_welcome_email(self, user_email: str, user_name: Optional[str] = None) -> bool:
-        if not self.client:
-            logger.error("Cannot send email: MAILTRAP_API_TOKEN not configured")
-            return False
-    
-        if not user_name:
-            user_name = user_email.split('@')[0].title()
-        
-        subject = "🎉 Welcome to Suna — Let's Get Started "
-        html_content = self._get_welcome_email_template(user_name)
-        text_content = self._get_welcome_email_text(user_name)
-        
-        return self._send_email(
-            to_email=user_email,
-            to_name=user_name,
-            subject=subject,
-            html_content=html_content,
-            text_content=text_content
-        )
+    def send_welcome_email(self, recipient_email: str, recipient_name: str):
+        subject = "🎉 Welcome to Shukra (Beta) — Let's Get Started "
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Welcome to Kortix Shukra</title>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #ffffff;
+                    color: #000000;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 1.6;
+                }}
+                .container {{
+                    max-width: 600px;
+                    margin: 40px auto;
+                    padding: 30px;
+                    background-color: #ffffff;
+                }}
+                .logo-container {{
+                    text-align: center;
+                    margin-bottom: 30px;
+                    padding: 10px 0;
+                }}
+                .logo {{
+                    max-width: 100%;
+                    height: auto;
+                    max-height: 60px;
+                    display: inline-block;
+                }}
+                h1 {{
+                    font-size: 24px;
+                    color: #000000;
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin-bottom: 16px;
+                }}
+                a {{
+                    color: #3366cc;
+                    text-decoration: none;
+                }}
+                a:hover {{
+                    text-decoration: underline;
+                }}
+                .button {{
+                    display: inline-block;
+                    margin-top: 30px;
+                    background-color: #3B82F6;
+                    color: white !important;
+                    padding: 14px 24px;
+                    text-align: center;
+                    text-decoration: none;
+                    font-weight: bold;
+                    border-radius: 6px;
+                    border: none;
+                }}
+                .button:hover {{
+                    background-color: #2563EB;
+                    text-decoration: none;
+                }}
+                .emoji {{
+                    font-size: 20px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <img src="https://i.postimg.cc/WdNtRx5Z/kortix-shukra-logo.png" alt="Kortix Shukra Logo" class="logo">
+                
+                <h1>Welcome to Kortix Shukra!</h1>
+                
+                <div class="content">
+                    <p><em><strong>Welcome to Kortix Shukra — we're excited to have you in our closed beta!</strong></em></p>
+                    
+                    <p>You're one of the select few who have been granted early access to our platform. We value your feedback and insights as we continue to improve Shukra.</p>
+                    
+                    <p>To celebrate your arrival, here's a <strong>15% discount</strong> to try out the best version of Shukra (1 month):</p>
+                    
+                    <div class="discount-code">
+                        <code>WELCOME15</code>
+                    </div>
+                    
+                    <p>Thanks again, and welcome to the Shukra community <span class="emoji">🌞</span></p>
+                    
+                    <p>— The Shukra Team</p>
+                    
+                    <a href="https://www.shukra.so/" class="button">Go to the platform</a>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>Welcome to Shukra — we're excited to have you in our closed beta!</p>
+                
+                <p>You're one of the select few who have been granted early access to our platform. We value your feedback and insights as we continue to improve Shukra.</p>
+                
+                <p>To celebrate your arrival, here's a 15% discount to try out the best version of Shukra (1 month):</p>
+                
+                <p>WELCOME15</p>
+                
+                <p>Thanks again, and welcome to the Shukra community 🌞</p>
+                
+                <p>— The Shukra Team</p>
+                
+                <p>Go to the platform: https://www.shukra.so/</p>
+                
+                <hr>
+                
+                © 2024 Shukra. All rights reserved.
+                You received this email because you signed up for a Shukra account.
+            </div>
+        </body>
+        </html>
+        """
     
     def _send_email(
         self, 

@@ -50,7 +50,7 @@ export function AgentSelector({
     ? agents.find(agent => agent.agent_id === selectedAgentId)
     : null;
 
-  const displayName = currentAgent?.name || defaultAgent?.name || 'Suna';
+  const displayName = currentAgent?.name || defaultAgent?.name || 'Shukra';
   const agentAvatar = currentAgent?.avatar;
   const isUsingSuna = !currentAgent && !defaultAgent;
 

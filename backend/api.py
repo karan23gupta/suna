@@ -13,6 +13,7 @@ from utils.logger import logger
 import time
 from collections import OrderedDict
 from typing import Dict, Any
+import os
 
 from pydantic import BaseModel
 # Import the agent API module
@@ -110,13 +111,13 @@ async def log_requests_middleware(request: Request, call_next):
         raise
 
 # Define allowed origins based on environment
-allowed_origins = ["https://www.suna.so", "https://suna.so", "http://localhost:3000", "http://18.101.88.243:8000", "https://18.101.88.243:8000", "http://18.101.88.243:3000", "https://18.101.88.243:3000"]
+allowed_origins = ["https://www.shukra.so", "https://shukra.so", "http://localhost:3000", "http://18.101.88.243:8000", "https://18.101.88.243:8000", "http://18.101.88.243:3000", "https://18.101.88.243:3000"]
 allow_origin_regex = None
 
 # Add staging-specific origins
-if config.ENV_MODE == EnvMode.STAGING:
-    allowed_origins.append("https://staging.suna.so")
-    allow_origin_regex = r"https://suna-.*-prjcts\.vercel\.app"
+if os.getenv("ENVIRONMENT") == "staging":
+    allowed_origins.append("https://staging.shukra.so")
+    allow_origin_regex = r"https://shukra-.*-prjcts\.vercel\.app"
 
 app.add_middleware(
     CORSMiddleware,

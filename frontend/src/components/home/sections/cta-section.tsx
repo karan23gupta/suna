@@ -20,17 +20,22 @@ export function CTASection() {
             priority
           /> */}
           <div className="absolute inset-0 -top-32 md:-top-40 flex flex-col items-center justify-center">
-            <h1 className="text-white text-4xl md:text-7xl font-medium tracking-tighter max-w-xs md:max-w-xl text-center">
-              {ctaSection.title}
-            </h1>
+            <div className="flex flex-col items-center gap-4">
+              <span className="text-white/80 text-sm font-medium bg-white/10 px-3 py-1 rounded-full">
+                Currently in Closed Beta
+              </span>
+              <h1 className="text-white text-4xl md:text-7xl font-medium tracking-tighter max-w-xs md:max-w-xl text-center">
+                {ctaSection.title}
+              </h1>
+            </div>
             <div className="absolute bottom-10 flex flex-col items-center justify-center gap-2">
               <Link
                 href={ctaSection.button.href}
                 className="bg-white text-black font-semibold text-sm h-10 w-fit px-4 rounded-full flex items-center justify-center shadow-md"
               >
-                {ctaSection.button.text}
+                Request Early Access
               </Link>
-              <span className="text-white text-sm">{ctaSection.subtext}</span>
+              <span className="text-white text-sm">Limited spots available</span>
             </div>
           </div>
         </div>

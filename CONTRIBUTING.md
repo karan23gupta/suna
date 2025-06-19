@@ -1,34 +1,55 @@
-# Contributing to Suna
+# Contributing to Shukra
 
-Thank you for your interest in contributing to Suna! This document outlines the contribution process and guidelines.
+Thank you for your interest in contributing to Shukra! This document outlines the contribution process and guidelines.
 
-## Contribution Workflow
+## Getting Started
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -am 'feat(your_file): add some feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
+2. Clone your fork:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/shukra.git
+cd shukra
+```
+
+3. Create a new branch:
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+4. Make your changes
+5. Commit your changes:
+
+```bash
+git add .
+git commit -m "feat: add your feature"
+```
+
+6. Push to your fork:
+
+```bash
+git push origin feature/your-feature-name
+```
+
+7. Open a Pull Request
 
 ## Development Setup
 
-For detailed setup instructions, please refer to:
+Please refer to our [Self-Hosting Guide](./docs/SELF-HOSTING.md) for detailed setup instructions.
 
-- [Backend Development Setup](backend/README.md)
-- [Frontend Development Setup](frontend/README.md)
+## Code Style
 
-## Code Style Guidelines
+- Follow PEP 8 for Python code
+- Use ESLint and Prettier for TypeScript/JavaScript
+- Write meaningful commit messages following [Conventional Commits](https://www.conventionalcommits.org/)
 
-- Follow existing code style and patterns
-- Use descriptive commit messages
-- Keep PRs focused on a single feature or fix
+## Testing
 
-## Reporting Issues
+- Add tests for new features
+- Ensure all tests pass before submitting a PR
+- Update documentation as needed
 
-When reporting issues, please include:
+## Questions?
 
-- Steps to reproduce
-- Expected behavior
-- Actual behavior
-- Environment details (OS, Node/Docker versions, etc.)
-- Relevant logs or screenshots
+Join our [Discord community](https://discord.gg/kortixai) for help and discussions.
