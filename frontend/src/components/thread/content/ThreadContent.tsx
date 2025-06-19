@@ -573,7 +573,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                                 <div className="flex flex-col gap-2">
                                                     {/* Logo positioned above the message content - ONLY ONCE PER GROUP */}
                                                     <div className="flex items-center">
-                                                        <p className='ml-2 text-sm text-muted-foreground'>'Shukra'</p>
+                                                        <p className='ml-2 text-sm text-muted-foreground'>Shukra</p>
                                                     </div>
                                                     
                                                     {/* Message content - ALL messages in the group */}
@@ -839,7 +839,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                         <div className="flex flex-col gap-2">
                                             {/* Logo positioned above the loader */}
                                             <div className="flex items-center">
-                                                <p className='ml-2 text-sm text-muted-foreground'>'Shukra'</p>
+                                                <p className='ml-2 text-sm text-muted-foreground'>Shukra</p>
                                             </div>
                                             
                                             {/* Loader content */}
@@ -856,7 +856,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                     <div className="flex flex-col gap-2">
                                         {/* Logo positioned above the tool call */}
                                         <div className="flex justify-start">
-                                            <p className='ml-2 text-sm text-muted-foreground'>{agentName}</p>
+                                            <p className='ml-2 text-sm text-muted-foreground'>Shukra</p>
                                         </div>
                                         
                                         {/* Tool call content */}
@@ -878,7 +878,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = ({
                                     <div className="flex flex-col gap-2">
                                         {/* Logo positioned above the streaming indicator */}
                                         <div className="flex justify-start">
-                                            <p className='ml-2 text-sm text-muted-foreground'>{agentName}</p>
+                                            <p className='ml-2 text-sm text-muted-foreground'>Shukra</p>
                                         </div>
                                         
                                         {/* Streaming indicator content */}
