@@ -83,7 +83,7 @@ export function ShareModal({ isOpen, onClose, threadId, projectId }: ShareModalP
 
   const generateShareLink = () => {
     if (!threadId) return ""
-    return `${process.env.NEXT_PUBLIC_URL || window.location.origin}/share/${threadId}`
+    return `http://18.101.88.243:3000/share/${threadId}`
   }
 
   const createShareLink = async () => {
