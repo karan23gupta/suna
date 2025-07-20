@@ -111,7 +111,7 @@ async def log_requests_middleware(request: Request, call_next):
         raise
 
 # Define allowed origins based on environment
-allowed_origins = ["https://www.shukra.so", "https://shukra.so", "http://localhost:3000", "http://18.101.88.243:8000", "https://18.101.88.243:8000", "http://51.94.220.177:3000", "https://http://51.94.220.177:3000"]
+allowed_origins = ["https://www.shukra.so", "https://shukra.so", "http://localhost:3000", "http://18.101.88.243:8000", "https://18.101.88.243:8000", "http://51.94.220.177:3000", "https://51.94.220.177:3000"]
 allow_origin_regex = None
 
 # Add staging-specific origins

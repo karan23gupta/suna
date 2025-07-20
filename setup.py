@@ -551,7 +551,7 @@ ENV_MODE=local
         env_content += f"{key}={value}\n"
     
     # Add next public URL at the end
-    env_content += f"NEXT_PUBLIC_URL=http://18.101.88.243:3000\n"
+    env_content += f"NEXT_PUBLIC_URL=http://51.94.220.177:3000\n"
     
     # Write to file
     with open(env_path, 'w') as f:
@@ -566,13 +566,13 @@ def configure_frontend_env(env_vars, use_docker=True):
     env_path = os.path.join('frontend', '.env.local')
     
     # Use the appropriate backend URL based on start method
-    backend_url = "http://18.101.88.243:8000/api"
+    backend_url = "http://51.94.220.177:8000/api"
 
     config = {
         'NEXT_PUBLIC_SUPABASE_URL': env_vars['supabase']['SUPABASE_URL'],
         'NEXT_PUBLIC_SUPABASE_ANON_KEY': env_vars['supabase']['SUPABASE_ANON_KEY'],
         'NEXT_PUBLIC_BACKEND_URL': backend_url,
-        'NEXT_PUBLIC_URL': 'http://18.101.88.243:3000',
+        'NEXT_PUBLIC_URL': 'http://51.94.220.177:3000',
         'NEXT_PUBLIC_ENV_MODE': 'LOCAL',
     }
 
