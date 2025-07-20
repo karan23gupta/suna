@@ -91,6 +91,10 @@ class SandboxWebSearchTool(SandboxToolsBase):
             if not query or not isinstance(query, str):
                 return self.fail_response("A valid search query is required.")
             
+            # Check if API key is configured
+            if not self.tavily_api_key:
+                return self.fail_response("TAVILY_API_KEY is not configured. Please set up your Tavily API key.")
+            
             # Normalize num_results
             if num_results is None:
                 num_results = 20
@@ -106,13 +110,31 @@ class SandboxWebSearchTool(SandboxToolsBase):
 
             # Execute the search with Tavily
             logging.info(f"Executing web search for query: '{query}' with {num_results} results")
-            search_response = await self.tavily_client.search(
-                query=query,
-                max_results=num_results,
-                include_images=True,
-                include_answer="advanced",
-                search_depth="advanced",
-            )
+            
+            # Add timeout to Tavily client call
+            try:
+                search_response = await asyncio.wait_for(
+                    self.tavily_client.search(
+                        query=query,
+                        max_results=num_results,
+                        include_images=True,
+                        include_answer="advanced",
+                        search_depth="advanced",
+                    ),
+                    timeout=60.0  # 60 second timeout
+                )
+            except asyncio.TimeoutError:
+                return self.fail_response("Search request timed out. Please try again with a more specific query.")
+            except Exception as api_error:
+                error_msg = str(api_error)
+                if "rate limit" in error_msg.lower() or "429" in error_msg:
+                    return self.fail_response("Search rate limit exceeded. Please wait a moment and try again.")
+                elif "unauthorized" in error_msg.lower() or "401" in error_msg:
+                    return self.fail_response("Invalid Tavily API key. Please check your configuration.")
+                elif "quota" in error_msg.lower():
+                    return self.fail_response("Search quota exceeded. Please upgrade your Tavily plan.")
+                else:
+                    return self.fail_response(f"Search API error: {error_msg[:200]}")
             
             # Check if we have actual results or an answer
             results = search_response.get('results', [])
@@ -139,9 +161,19 @@ class SandboxWebSearchTool(SandboxToolsBase):
         except Exception as e:
             error_message = str(e)
             logging.error(f"Error performing web search for '{query}': {error_message}")
-            simplified_message = f"Error performing web search: {error_message[:200]}"
-            if len(error_message) > 200:
-                simplified_message += "..."
+            
+            # Provide more specific error messages
+            if "timeout" in error_message.lower():
+                simplified_message = "Search request timed out. Please try again."
+            elif "connection" in error_message.lower():
+                simplified_message = "Network connection error. Please check your internet connection."
+            elif "api key" in error_message.lower():
+                simplified_message = "API key configuration error. Please check your Tavily API key."
+            else:
+                simplified_message = f"Error performing web search: {error_message[:200]}"
+                if len(error_message) > 200:
+                    simplified_message += "..."
+            
             return self.fail_response(simplified_message)
 
     @openapi_schema({

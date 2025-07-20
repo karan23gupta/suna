@@ -131,6 +131,33 @@ export function WebSearchToolView({
             filePath={query}
             showProgress={true}
           />
+        ) : !actualIsSuccess && searchResults.length === 0 && !answer ? (
+          // Show error state when search fails
+          <div className="flex flex-col items-center justify-center h-full py-12 px-6 bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-gradient-to-b from-rose-100 to-rose-50 shadow-inner dark:from-rose-800/40 dark:to-rose-900/60">
+              <AlertTriangle className="h-10 w-10 text-rose-500 dark:text-rose-400" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-zinc-100">
+              Search Failed
+            </h3>
+            <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 w-full max-w-md text-center mb-4 shadow-sm">
+              <code className="text-sm font-mono text-zinc-700 dark:text-zinc-300 break-all">
+                {query || 'Unknown query'}
+              </code>
+            </div>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center max-w-md">
+              The search request could not be completed. This might be due to:
+            </p>
+            <ul className="text-sm text-zinc-500 dark:text-zinc-400 mt-2 max-w-md text-center">
+              <li>• Network connectivity issues</li>
+              <li>• API rate limits or quotas</li>
+              <li>• Invalid or missing API keys</li>
+              <li>• Search service temporarily unavailable</li>
+            </ul>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-4">
+              Try again with a different query or check your configuration.
+            </p>
+          </div>
         ) : searchResults.length > 0 || answer ? (
           <ScrollArea className="h-full w-full">
             <div className="p-4 py-0 my-4">
