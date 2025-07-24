@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import { ToolView } from './tool-views/wrapper';
+import { extractToolName as extractToolNameFromXml } from './tool-views/xml-parser';
 
 export interface ToolCallInput {
   assistantCall: {
@@ -149,7 +150,19 @@ export function ToolCallSidePanel({
 
   // Extract meaningful tool name, especially for MCP tools
   const extractToolName = (toolCall: any) => {
-    const rawName = toolCall?.assistantCall?.name || 'Tool Call';
+    // Try to use the name field first
+    let rawName = toolCall?.assistantCall?.name;
+
+    // If name is missing or generic, try to extract from content using the new parser
+    if (!rawName || rawName === 'Tool Call' || rawName === 'unknown') {
+      const assistantContent = toolCall?.assistantCall?.content;
+      if (assistantContent) {
+        const xmlToolName = extractToolNameFromXml(assistantContent);
+        if (xmlToolName) {
+          rawName = xmlToolName;
+        }
+      }
+    }
 
     // Handle MCP tools specially
     if (rawName === 'call-mcp-tool') {
@@ -171,7 +184,7 @@ export function ToolCallSidePanel({
     }
 
     // For all other tools, use the friendly name
-    return getUserFriendlyToolName(rawName);
+    return getUserFriendlyToolName(rawName || 'Tool Call');
   };
 
   const completedToolCalls = toolCallSnapshots.filter(snapshot =>
@@ -198,10 +211,9 @@ export function ToolCallSidePanel({
     }
   }
 
-  const currentToolName = displayToolCall?.assistantCall?.name || 'Tool Call';
-  const CurrentToolIcon = getToolIcon(
-    currentToolCall?.assistantCall?.name || 'unknown',
-  );
+  // Use improved tool name extraction for ToolView and icon
+  const currentToolName = extractToolName(displayToolCall);
+  const CurrentToolIcon = getToolIcon(currentToolName || 'unknown');
   const isStreaming = displayToolCall?.toolResult?.content === 'STREAMING';
 
   // Extract actual success value from tool content with fallbacks
@@ -588,7 +600,7 @@ export function ToolCallSidePanel({
 
     const toolView = (
       <ToolView
-        name={displayToolCall.assistantCall.name}
+        name={currentToolName}
         assistantContent={displayToolCall.assistantCall.content}
         toolContent={displayToolCall.toolResult?.content}
         assistantTimestamp={displayToolCall.assistantCall.timestamp}
