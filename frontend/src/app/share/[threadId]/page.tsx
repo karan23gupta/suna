@@ -789,6 +789,41 @@ export default function ThreadPage({
     }
   }, [currentMessageIndex, isPlaying, messages, toolCalls]);
 
+  // Add or replace the following effect to sync tool panel with playback
+  useEffect(() => {
+    if (messages.length === 0 || toolCalls.length === 0) return;
+    // Find the most recent tool message up to the current message index
+    const currentMessages = messages.slice(0, currentMessageIndex);
+    let lastToolMsgIndex = -1;
+    let lastToolAssistantId = null;
+    for (let i = currentMessages.length - 1; i >= 0; i--) {
+      const msg = currentMessages[i];
+      if (msg.type === 'tool' && msg.metadata) {
+        try {
+          const metadata = safeJsonParse<ParsedMetadata>(msg.metadata, {});
+          if (metadata.assistant_message_id) {
+            lastToolMsgIndex = i;
+            lastToolAssistantId = metadata.assistant_message_id;
+            break;
+          }
+        } catch {}
+      }
+    }
+    if (lastToolAssistantId) {
+      // Find the tool call that matches this assistant message
+      const toolIndex = toolCalls.findIndex((tc) => {
+        const assistantMessage = messages.find(
+          (m) => m.message_id === lastToolAssistantId && m.type === 'assistant'
+        );
+        if (!assistantMessage) return false;
+        return tc.assistantCall?.content === assistantMessage.content;
+      });
+      if (toolIndex !== -1 && toolIndex !== currentToolIndex) {
+        setCurrentToolIndex(toolIndex);
+      }
+    }
+  }, [currentMessageIndex, messages, toolCalls]);
+
   // Loading skeleton UI
   if (isLoading && !initialLoadCompleted.current) {
     return (
