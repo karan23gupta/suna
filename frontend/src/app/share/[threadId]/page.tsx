@@ -206,15 +206,15 @@ export default function ThreadPage({
       // This ensures the specialized tool views render correctly
       let formattedContent = toolArguments;
       if (
-        toolName.includes('command') &&
-        !toolArguments.includes('<execute-command>')
+        typeof toolName === 'string' && toolName.includes('command') &&
+        typeof toolArguments === 'string' && !toolArguments.includes('<execute-command>')
       ) {
         formattedContent = `<execute-command>${toolArguments}</execute-command>`;
       } else if (
-        toolName.includes('file') ||
+        typeof toolName === 'string' && (toolName.includes('file') ||
         toolName === 'create-file' ||
         toolName === 'delete-file' ||
-        toolName === 'full-file-rewrite'
+        toolName === 'full-file-rewrite')
       ) {
         // For file operations, check if toolArguments contains a file path
         // If it's just a raw file path, format it properly
@@ -222,7 +222,11 @@ export default function ThreadPage({
         const matchingTag = fileOpTags.find((tag) => toolName === tag);
         if (matchingTag) {
           // Check if arguments already have the proper XML format
-          if (!toolArguments.includes(`<${matchingTag}>`) && !toolArguments.includes('file_path=')) {
+          if (
+            typeof toolArguments === 'string' &&
+            !toolArguments.includes(`<${matchingTag}>`) &&
+            !toolArguments.includes('file_path=')
+          ) {
             // If toolArguments looks like a raw file path, format it properly
             const filePath = toolArguments.trim();
             if (filePath && !filePath.startsWith('<')) {
@@ -769,7 +773,7 @@ export default function ThreadPage({
             // Scan for matching tool call
             for (let j = 0; j < toolCalls.length; j++) {
               const content = toolCalls[j].assistantCall?.content || '';
-              if (content.includes(assistantId)) {
+              if (typeof content === 'string' && content.includes(assistantId)) {
                 console.log(
                   `Found matching tool call at index ${j}, updating panel`,
                 );

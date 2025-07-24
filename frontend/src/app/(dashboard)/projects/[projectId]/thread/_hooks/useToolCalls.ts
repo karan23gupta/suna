@@ -308,20 +308,24 @@ export function useToolCalls(
       const toolArguments = toolCall.arguments || '';
       let formattedContent = toolArguments;
       if (
-        toolName.includes('command') &&
-        !toolArguments.includes('<execute-command>')
+        typeof toolName === 'string' && toolName.includes('command') &&
+        typeof toolArguments === 'string' && !toolArguments.includes('<execute-command>')
       ) {
         formattedContent = `<execute-command>${toolArguments}</execute-command>`;
       } else if (
-        toolName.includes('file') ||
+        typeof toolName === 'string' && (toolName.includes('file') ||
         toolName === 'create-file' ||
         toolName === 'delete-file' ||
-        toolName === 'full-file-rewrite'
+        toolName === 'full-file-rewrite')
       ) {
         const fileOpTags = ['create-file', 'delete-file', 'full-file-rewrite'];
         const matchingTag = fileOpTags.find((tag) => toolName === tag);
         if (matchingTag) {
-          if (!toolArguments.includes(`<${matchingTag}>`) && !toolArguments.includes('file_path=')) {
+          if (
+            typeof toolArguments === 'string' &&
+            !toolArguments.includes(`<${matchingTag}>`) &&
+            !toolArguments.includes('file_path=')
+          ) {
             const filePath = toolArguments.trim();
             if (filePath && !filePath.startsWith('<')) {
               formattedContent = `<${matchingTag} file_path="${filePath}">`;
