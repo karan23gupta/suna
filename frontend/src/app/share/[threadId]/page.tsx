@@ -31,6 +31,7 @@ import { useAgentStream } from '@/hooks/useAgentStream';
 import { threadErrorCodeMessages } from '@/lib/constants/errorCodeMessages';
 import { ThreadSkeleton } from '@/components/thread/content/ThreadSkeleton';
 import { useAgent } from '@/hooks/react-query/agents/use-agents';
+import { extractToolName as extractToolNameFromXml } from '@/components/thread/tool-views/xml-parser';
 
 // Extend the base Message type with the expected database fields
 interface ApiMessageType extends BaseApiMessageType {
@@ -425,30 +426,34 @@ export default function ThreadPage({
                   }
                 })();
 
-                // Try to extract tool name from content
-                const xmlMatch = assistantContent.match(
-                  /<([a-zA-Z\-_]+)(?:\s+[^>]*)?>|<([a-zA-Z\-_]+)(?:\s+[^>]*)?\/>/,
-                );
-                if (xmlMatch) {
-                  // Normalize tool name: replace underscores with hyphens and lowercase
-                  const rawToolName = xmlMatch[1] || xmlMatch[2] || 'unknown';
-                  toolName = rawToolName.replace(/_/g, '-').toLowerCase();
+                // Use the robust XML parser for new formats
+                const xmlToolName = extractToolNameFromXml(assistantContent);
+                if (xmlToolName) {
+                  toolName = xmlToolName.toLowerCase();
                 } else {
-                  // Fallback to checking for tool_calls JSON structure
-                  const assistantContentParsed = safeJsonParse<{
-                    tool_calls?: Array<{ function?: { name?: string }; name?: string }>;
-                  }>(assistantMsg.content, {});
-                  if (
-                    assistantContentParsed.tool_calls &&
-                    assistantContentParsed.tool_calls.length > 0
-                  ) {
-                    const firstToolCall = assistantContentParsed.tool_calls[0];
-                    const rawName = firstToolCall.function?.name || firstToolCall.name || 'unknown';
-                    // Normalize tool name here too
-                    toolName = rawName.replace(/_/g, '-').toLowerCase();
+                  // Fallback to old logic
+                  const xmlMatch = assistantContent.match(
+                    /<([a-zA-Z\-_]+)(?:\s+[^>]*)?>|<([a-zA-Z\-_]+)(?:\s+[^>]*)?\/>/,
+                  );
+                  if (xmlMatch) {
+                    const rawToolName = xmlMatch[1] || xmlMatch[2] || 'unknown';
+                    toolName = rawToolName.replace(/_/g, '-').toLowerCase();
+                  } else {
+                    // Fallback to checking for tool_calls JSON structure
+                    const assistantContentParsed = safeJsonParse<{
+                      tool_calls?: Array<{ function?: { name?: string }; name?: string }>;
+                    }>(assistantMsg.content, {});
+                    if (
+                      assistantContentParsed.tool_calls &&
+                      assistantContentParsed.tool_calls.length > 0
+                    ) {
+                      const firstToolCall = assistantContentParsed.tool_calls[0];
+                      const rawName = firstToolCall.function?.name || firstToolCall.name || 'unknown';
+                      toolName = rawName.replace(/_/g, '-').toLowerCase();
+                    }
                   }
                 }
-              } catch { }
+              } catch {}
 
               let isSuccess = true;
               try {
