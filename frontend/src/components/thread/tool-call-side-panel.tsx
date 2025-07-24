@@ -164,6 +164,33 @@ export function ToolCallSidePanel({
       }
     }
 
+    // Robust mapping for image tools
+    if (rawName) {
+      const normalized = String(rawName).toLowerCase().replace(/_/g, '-').trim();
+      if (
+        normalized === 'see-image' ||
+        normalized === 'view-image' ||
+        normalized === 'viewing-image' ||
+        normalized === 'image' ||
+        normalized === 'show-image' ||
+        normalized === 'display-image' ||
+        normalized === 'showing-image' ||
+        normalized === 'view-image-tool' ||
+        normalized === 'seeimage' ||
+        normalized === 'viewimage' ||
+        normalized === 'viewingimage' ||
+        normalized === 'see image' ||
+        normalized === 'view image' ||
+        normalized === 'viewing image' ||
+        normalized === 'show image' ||
+        normalized === 'display image' ||
+        normalized === 'showing image' ||
+        normalized === 'view image tool'
+      ) {
+        return 'see-image';
+      }
+    }
+
     // Handle MCP tools specially
     if (rawName === 'call-mcp-tool') {
       const assistantContent = toolCall?.assistantCall?.content;
