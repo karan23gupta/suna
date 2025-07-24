@@ -164,31 +164,43 @@ export function ToolCallSidePanel({
       }
     }
 
-    // Robust mapping for image tools
+    // Robust normalization for all tool types
     if (rawName) {
-      const normalized = String(rawName).toLowerCase().replace(/_/g, '-').trim();
-      if (
-        normalized === 'see-image' ||
-        normalized === 'view-image' ||
-        normalized === 'viewing-image' ||
-        normalized === 'image' ||
-        normalized === 'show-image' ||
-        normalized === 'display-image' ||
-        normalized === 'showing-image' ||
-        normalized === 'view-image-tool' ||
-        normalized === 'seeimage' ||
-        normalized === 'viewimage' ||
-        normalized === 'viewingimage' ||
-        normalized === 'see image' ||
-        normalized === 'view image' ||
-        normalized === 'viewing image' ||
-        normalized === 'show image' ||
-        normalized === 'display image' ||
-        normalized === 'showing image' ||
-        normalized === 'view image tool'
-      ) {
-        return 'see-image';
+      let normalized = String(rawName).toLowerCase().replace(/[_\s]+/g, '-').replace(/[^a-z0-9\-]/g, '').trim();
+      // Remove common suffixes/prefixes
+      normalized = normalized.replace(/^(tool-|function-|invoke-)/, '').replace(/(-tool|-function|-invoke)$/,'');
+      // Special case for MCP tools
+      if (normalized.startsWith('mcp-') || normalized.startsWith('mcp_')) {
+        normalized = normalized.replace(/-/g, '_');
       }
+      // Map known variants to canonical tool names
+      const toolMap = new Map([
+        // Images
+        ['see-image', 'see-image'], ['view-image', 'see-image'], ['viewing-image', 'see-image'], ['image', 'see-image'], ['show-image', 'see-image'], ['display-image', 'see-image'], ['showing-image', 'see-image'], ['view-image-tool', 'see-image'], ['seeimage', 'see-image'], ['viewimage', 'see-image'], ['viewingimage', 'see-image'], ['see image', 'see-image'], ['view image', 'see-image'], ['viewing image', 'see-image'], ['show image', 'see-image'], ['display image', 'see-image'], ['showing image', 'see-image'], ['view image tool', 'see-image'],
+        // Shell/command
+        ['execute-command', 'execute-command'], ['executecommand', 'execute-command'], ['run-command', 'execute-command'], ['runcommand', 'execute-command'],
+        // File ops
+        ['create-file', 'create-file'], ['createfile', 'create-file'], ['delete-file', 'delete-file'], ['deletefile', 'delete-file'], ['full-file-rewrite', 'full-file-rewrite'], ['fullfilerewrite', 'full-file-rewrite'], ['read-file', 'read-file'], ['readfile', 'read-file'],
+        // String replace
+        ['str-replace', 'str-replace'], ['strreplace', 'str-replace'],
+        // Web search
+        ['web-search', 'web-search'], ['websearch', 'web-search'],
+        // Data provider
+        ['execute-data-provider-call', 'execute-data-provider-call'], ['executedataprovidercall', 'execute-data-provider-call'], ['get-data-provider-endpoints', 'get-data-provider-endpoints'], ['getdataproviderendpoints', 'get-data-provider-endpoints'],
+        // Browser
+        ['browser-navigate-to', 'browser-navigate-to'], ['browser-click-element', 'browser-click-element'], ['browser-input-text', 'browser-input-text'], ['browser-scroll-down', 'browser-scroll-down'], ['browser-scroll-up', 'browser-scroll-up'], ['browser-click-coordinates', 'browser-click-coordinates'], ['browser-send-keys', 'browser-send-keys'], ['browser-switch-tab', 'browser-switch-tab'], ['browser-go-back', 'browser-go-back'], ['browser-close-tab', 'browser-close-tab'], ['browser-drag-drop', 'browser-drag-drop'], ['browser-get-dropdown-options', 'browser-get-dropdown-options'], ['browser-select-dropdown-option', 'browser-select-dropdown-option'], ['browser-scroll-to-text', 'browser-scroll-to-text'], ['browser-wait', 'browser-wait'],
+        // Ask/complete
+        ['ask', 'ask'], ['complete', 'complete'],
+        // MCP
+        ['call-mcp-tool', 'call-mcp-tool'], ['callmcptool', 'call-mcp-tool'],
+      ]);
+      if (toolMap.has(normalized)) {
+        return toolMap.get(normalized);
+      }
+      // Fallback: if it matches a key in TOOL_DISPLAY_NAMES or user-friendly mapping, use that
+      // (imported from utils.ts)
+      // Otherwise, return the normalized name
+      return normalized;
     }
 
     // Handle MCP tools specially
