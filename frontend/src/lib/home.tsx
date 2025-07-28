@@ -54,13 +54,6 @@ export const siteConfig = {
   cta: 'Request Access',
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   keywords: ['AI Agent', 'Generalist AI', 'Open Source AI', 'Autonomous Agent'],
-  links: {
-    email: 'support@kortix.ai',
-    twitter: 'https://x.com/kortixai',
-    discord: 'https://discord.gg/kortixai',
-    github: 'https://github.com/Kortix-ai/Shukra',
-    instagram: 'https://instagram.com/kortixai',
-  },
   nav: {
     links: [
       { id: 1, name: 'Home', href: '#hero' },
@@ -97,7 +90,6 @@ export const siteConfig = {
       </svg>
     ),
     badge: 'CLOSED BETA',
-    githubUrl: 'https://github.com/kortix-ai/shukra',
     title: 'Shukra, the AI Employee.',
     description:
       'Shukra by – is a generalist AI Agent that acts on your behalf. Currently in closed beta, available to select users only.',
@@ -1108,48 +1100,6 @@ export const siteConfig = {
     },
     subtext: 'The generalist AI Agent that acts on your behalf',
   },
-  footerLinks: [
-    {
-      title: 'Kortix',
-      links: [
-        { id: 1, title: 'About', url: 'https://kortix.ai' },
-        { id: 3, title: 'Contact', url: 'mailto:hey@kortix.ai' },
-        { id: 4, title: 'Careers', url: 'https://kortix.ai/careers' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        {
-          id: 5,
-          title: 'Documentation',
-          url: 'https://github.com/Kortix-ai/Shukra',
-        },
-        { id: 7, title: 'Discord', url: 'https://discord.gg/Py6pCBUUPw' },
-        { id: 8, title: 'GitHub', url: 'https://github.com/Kortix-ai/Shukra' },
-      ],
-    },
-    {
-      title: 'Legal',
-      links: [
-        {
-          id: 9,
-          title: 'Privacy Policy',
-          url: 'https://suna.so/legal?tab=privacy',
-        },
-        {
-          id: 10,
-          title: 'Terms of Service',
-          url: 'https://suna.so/legal?tab=terms',
-        },
-        {
-          id: 11,
-          title: 'License Apache 2.0',
-          url: 'https://github.com/Kortix-ai/Shukra/blob/main/LICENSE',
-        },
-      ],
-    },
-  ],
   useCases: [
     {
       id: 'competitor-analysis',
