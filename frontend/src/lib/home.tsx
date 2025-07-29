@@ -92,7 +92,7 @@ export const siteConfig = {
     badge: 'CLOSED BETA',
     title: 'Shukra, the AI Employee.',
     description:
-      'Shukra by – is a generalist AI Agent that acts on your behalf. Currently in closed beta, available to select users only.',
+      'Shukra  is a generalist AI system that thinks, acts, and gets things done for you. Currently in closed beta, available to select users only.',
     inputPlaceholder: 'Ask Shukra to...',
   },
   cloudPricingItems: [
