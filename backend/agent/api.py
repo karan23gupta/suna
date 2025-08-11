@@ -914,7 +914,7 @@ async def initiate_agent_with_files(
             if sandbox_id:
               try: await delete_sandbox(sandbox_id)
               except Exception as e: pass
-            raise Exception("Failed to create sandbox")
+            raise Exception(f"Failed to create sandbox: {str(e)}")
 
 
         # Update project with sandbox info

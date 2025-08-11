@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from utils.logger import logger
 from utils.config import config
 from utils.config import Configuration
+import os
 
 load_dotenv()
 
@@ -85,6 +86,11 @@ def create_sandbox(password: str, project_id: str = None):
     logger.debug("Creating new Daytona sandbox environment")
     logger.debug("Configuring sandbox with browser-use image and environment variables")
     
+    # Check if public previews are enabled via environment variable
+    # Set DAYTONA_ENABLE_PUBLIC_PREVIEWS=true to enable public previews
+    # Note: Public previews require a Daytona plan higher than Tier 1
+    enable_public = os.getenv('DAYTONA_ENABLE_PUBLIC_PREVIEWS', 'false').lower() == 'true'
+    
     labels = None
     if project_id:
         logger.debug(f"Using sandbox_id as label: {project_id}")
@@ -92,7 +98,7 @@ def create_sandbox(password: str, project_id: str = None):
         
     params = CreateSandboxFromImageParams(
         image=Configuration.SANDBOX_IMAGE_NAME,
-        public=True,
+        public=enable_public,  # Configurable via environment variable
         labels=labels,
         env_vars={
             "CHROME_PERSISTENT_SESSION": "true",
